@@ -1,23 +1,50 @@
-﻿<Window x:Class="WpfApp1.MainWindow"
+<Window x:Class="WpfApp1.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfApp1"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <ListView x:Name="listView" Margin="0,0,0,62">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="id" DisplayMemberBinding="{Binding m_nID}" Width="50"/>
-                    <GridViewColumn Header="Imię" DisplayMemberBinding="{Binding m_strName}" Width="150"/>
-                    <GridViewColumn Header="Nazwisko" DisplayMemberBinding="{Binding m_strSname}" Width="150"/>
-                    <GridViewColumn Header="Pesel" DisplayMemberBinding="{Binding m_nPesel}" Width="150"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Button Content="dodaj" Margin="500,389,10,10" Click="Button_Click" HorizontalAlignment="Right" Width="62" Height="22" VerticalAlignment="Bottom"/>
+        Title="Aplikacja do zarządzania uczniami" Height="450" Width="800">
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
 
-    </Grid>
+		<Menu Grid.Row="0">
+			<MenuItem Header="_Plik">
+				<MenuItem Header="Wczytaj CSV" Click="MenuWczytaj_Click"/>
+				<MenuItem Header="Zapisz CSV" Click="MenuZapisz_Click"/>
+			</MenuItem>
+			<MenuItem Header="_Edycja">
+				<MenuItem Header="Dodaj ucznia" Click="MenuDodaj_Click"/>
+				<MenuItem Header="Usuń zaznaczonych" Click="MenuUsun_Click"/>
+			</MenuItem>
+			<MenuItem Header="_Pomoc">
+				<MenuItem Header="O programie" Click="MenuOProgramie_Click"/>
+			</MenuItem>
+		</Menu>
+
+		<ListView x:Name="lvUczniowie"
+                  Grid.Row="1"
+                  Margin="10,10,10,50"
+                  SelectionMode="Extended">
+			<ListView.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Edytuj" Click="ContextMenuEdit_Click"/>
+					<MenuItem Header="Usuń" Click="ContextMenuDelete_Click"/>
+				</ContextMenu>
+			</ListView.ContextMenu>
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Header="PESEL" DisplayMemberBinding="{Binding Pesel}" Width="100"/>
+					<GridViewColumn Header="Imię" DisplayMemberBinding="{Binding Imie}" Width="100"/>
+					<GridViewColumn Header="Drugie imię" DisplayMemberBinding="{Binding DrugieImie}" Width="100"/>
+					<GridViewColumn Header="Nazwisko" DisplayMemberBinding="{Binding Nazwisko}" Width="100"/>
+					<GridViewColumn Header="Data urodzenia" DisplayMemberBinding="{Binding DataUrodzenia, StringFormat=d}" Width="100"/>
+					<GridViewColumn Header="Telefon" DisplayMemberBinding="{Binding Telefon}" Width="100"/>
+					<GridViewColumn Header="Adres" DisplayMemberBinding="{Binding Adres}" Width="150"/>
+					<GridViewColumn Header="Miejscowość" DisplayMemberBinding="{Binding Miejscowosc}" Width="100"/>
+					<GridViewColumn Header="Kod pocztowy" DisplayMemberBinding="{Binding KodPocztowy}" Width="80"/>
+				</GridView>
+			</ListView.View>
+		</ListView>
+	</Grid>
 </Window>
